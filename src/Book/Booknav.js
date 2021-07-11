@@ -5,6 +5,8 @@ import Drawer from '@material-ui/core/Drawer';
 import  MenuItem  from '@material-ui/core/MenuItem';
 import  IconButton  from '@material-ui/core/IconButton';
 import MenuIcon from  '@material-ui/icons/Menu';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link'
 
 
 const styles = {
@@ -29,6 +31,7 @@ class Booknav extends Component {
         const { classes } = this.props;
 
         return(
+            <div>
            <div className = { classes.root } >
                <AppBar position = "static">
                <IconButton className =  { classes.MenuButton } color = "inherit"
@@ -37,11 +40,20 @@ class Booknav extends Component {
                </IconButton>
                </AppBar>
                <Drawer open = {this.state.toggle}>
-                   <MenuItem onClick = {this.handerDrawer}>Home</MenuItem>
-                   <MenuItem onClick = {this.handerDrawer}>순위</MenuItem>
-                   <MenuItem onClick = {this.handerDrawer}>랜덤</MenuItem>
-                   <MenuItem onClick = {this.handerDrawer}>추천작품</MenuItem>
+                   <MenuItem onClick = {this.handerDrawer}>
+                       <Link component = {RouterLink} to ="/">Home</Link>
+                       </MenuItem>
+                   <MenuItem onClick = {this.handerDrawer}>
+                   <Link component = {RouterLink} to ="/ranking">순위</Link>
+                   </MenuItem>
+                   <MenuItem onClick = {this.handerDrawer}>
+                   <Link component = {RouterLink} to ="/random">랜덤</Link>
+                   </MenuItem>
                </Drawer>
+           </div>
+           <div id ="content" style = {{margin : 'auto', marginTop : '20px'}}>
+               { React.cloneElement(this.props.children)}
+           </div>
            </div>
         )
     }
