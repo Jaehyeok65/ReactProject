@@ -26,14 +26,14 @@ const styles = theme => ({
 
 
 
-class Enroll extends React.Component {
+class Home extends React.Component {
     constructor() {
         super();
         this.state = {
             novels : {},
             dialog : false,
             novel : '',
-            view : ''
+            views : ''
         };
     }
 
@@ -58,7 +58,7 @@ class Enroll extends React.Component {
         return fetch(`${databaseURL}/novels/${id}.json`, {
             method : 'DELETE',
         }).then(res => {
-            if(res.status !== 20) {
+            if(res.status !== 200) {
                 throw new Error(res.statusText);
             }
             return res.json();
@@ -95,10 +95,10 @@ class Enroll extends React.Component {
     handleSubmit = () => {
         const novel = {
             novel : this.state.novel,
-            view : this.state.view
+            views : this.state.views
         }
         this.handleDialogToggle();
-        if(!novel.novel && !novel.view) {
+        if(!novel.novel && !novel.views) {
             return;
         }
         this._post(novel);
@@ -110,6 +110,8 @@ class Enroll extends React.Component {
 
 
     render() {
+        const { classes } = this.props;
+
         return (
             <div>
                 {Object.keys(this.state.novels).map(id => {
@@ -136,9 +138,23 @@ class Enroll extends React.Component {
                         </div>
                     )
                 })}
-            </div>
+                <Fab color = "primary" className = { classes.fab } onClick = {this.handleDialogToggle}>
+                    <AddIcon />
+                </Fab>
+                <Dialog open = {this.state.dialog} onClose = { this.handleDialogToggle}>
+                    <DialogTitle>무협지 추가</DialogTitle>
+                    <DialogContent>
+                        <TextField label = "소설" type = "text" name = "novel"  onChange = {this.handleValueChange}></TextField>
+                        <TextField label = "조회수" type = "text" name = "views"  onChange = {this.handleValueChange}></TextField>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant = "contained" color = "primary" onClick = {this.handleSubmit}>추가</Button>
+                        <Button variant = "outlined" color = "primary" onClick = {this.handleDialogToggle}>닫기</Button>
+                    </DialogActions>
+                </Dialog>
+             </div>
         );
     }
 }
 
-export default Enroll;
+export default withStyles(styles)(Home);
