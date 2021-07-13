@@ -43,15 +43,6 @@ class Booknav extends Component {
                    <MenuItem onClick = {this.handerDrawer}>
                        <Link component = {RouterLink} to ="/">Home</Link>
                        </MenuItem>
-                   <MenuItem onClick = {this.handerDrawer}>
-                   <Link component = {RouterLink} to ="/ranking">순위</Link>
-                   </MenuItem>
-                   <MenuItem onClick = {this.handerDrawer}>
-                   <Link component = {RouterLink} to ="/random">랜덤</Link>
-                   </MenuItem>
-                   <MenuItem onClick = {this.handerDrawer}>
-                   <Link component = {RouterLink} to ="/enroll">등록</Link>
-                   </MenuItem>
                </Drawer>
            </div>
            <div id ="content" style = {{margin : 'auto', marginTop : '20px'}}>
