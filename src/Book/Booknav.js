@@ -33,7 +33,7 @@ class Booknav extends Component {
         return(
             <div>
            <div className = { classes.root } >
-               <AppBar position = "static">
+               <AppBar position = "static"> 무사모
                <IconButton className =  { classes.MenuButton } color = "inherit"
                onClick = {this.handerDrawer}>
                    <MenuIcon />
@@ -42,6 +42,9 @@ class Booknav extends Component {
                <Drawer open = {this.state.toggle}>
                    <MenuItem onClick = {this.handerDrawer}>
                        <Link component = {RouterLink} to ="/">Home</Link>
+                       </MenuItem>
+                       <MenuItem onClick = {this.handerDrawer}>
+                       <Link component = {RouterLink} to ="/ranking">조회순</Link>
                        </MenuItem>
                </Drawer>
            </div>

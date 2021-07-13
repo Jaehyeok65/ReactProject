@@ -18,6 +18,16 @@ const styles = theme => ({
         position : 'fixed',
         bottom : '20px',
         right : '20px'
+    },
+    fab1 : {
+        position : 'fixed',
+        bottom : '20px',
+        right : '100px',
+    },
+    fab2 : {
+        position : 'fixed',
+        bottom : '20px',
+        right : '180px'
     }
 });
 
@@ -33,7 +43,10 @@ class Home extends React.Component {
             novels : {},
             dialog : false,
             novel : '',
-            views : ''
+            views : '',
+            list : [],
+            mode : false,
+            default : 1
         };
     }
 
@@ -53,6 +66,23 @@ class Home extends React.Component {
         })
 
     }
+    compareby_Desc(key) {
+        return function(a,b) {
+            var x = parseInt(a[key]);
+            var y = parseInt(b[key]);
+
+            if(x<y) return 1;
+            if(x>y) return -1;
+            return 0;
+        };
+    }
+    sortby_Desc(key) {
+        this.state.list.sort(this.compareby_Desc(key));
+    }
+    modeChange = () => this.setState({
+        mode : !this.state.mode,
+        default : this.state.default + 1
+    });
 
     _delete(id) {
         return fetch(`${databaseURL}/novels/${id}.json`, {
@@ -92,6 +122,9 @@ class Home extends React.Component {
         this.setState(nextState);
     }
 
+
+
+
     handleSubmit = () => {
         const novel = {
             novel : this.state.novel,
@@ -109,13 +142,17 @@ class Home extends React.Component {
     }
 
 
+
     render() {
         const { classes } = this.props;
-
+        if(this.state.mode === false){
         return (
             <div>
                 {Object.keys(this.state.novels).map(id => {
                     const novel = this.state.novels[id];
+                    if(this.state.default === 1) {
+                        this.state.list.push(novel);
+                        }
                     return (
                         <div key = {id}>
                             <Card>
@@ -141,6 +178,8 @@ class Home extends React.Component {
                 <Fab color = "primary" className = { classes.fab } onClick = {this.handleDialogToggle}>
                     <AddIcon />
                 </Fab>
+                <Button variant = "contained" className = { classes.fab2 } color = "primary" onClick = {this.sortby_Desc('views')} >조회순 정렬</Button>
+                <Button variant = "contained" className = { classes.fab2 } color = "primary" onClick = {this.modeChange} >조회수 높은 순으로 보기</Button>
                 <Dialog open = {this.state.dialog} onClose = { this.handleDialogToggle}>
                     <DialogTitle>무협지 추가</DialogTitle>
                     <DialogContent>
@@ -154,6 +193,53 @@ class Home extends React.Component {
                 </Dialog>
              </div>
         );
+        }
+        else if(this.state.mode === true) {
+            return (
+                <div>
+                    {Object.keys(this.state.list).map(id => {
+                        const novel = this.state.list[id];
+                        return (
+                            <div key = {id}>
+                                <Card>
+                        <CardContent>
+                            <Typography color = "textSecondary" gutterBottom>
+                                조회수 : {novel.views}
+                            </Typography>
+                            <Grid container>
+                                <Grid item xs = {6}>
+                            <Typography variant = "h5" component = "h2">
+                                { novel.novel }
+                            </Typography>
+                            </Grid>
+                            <Grid item xs = {6}>
+                                <Button variant = "contained" color ="primary" onClick = {() => this.handleDelete(id)}>삭제</Button>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                            </div>
+                        )
+                    })}
+                    <Fab color = "primary" className = { classes.fab } onClick = {this.handleDialogToggle}>
+                        <AddIcon />
+                    </Fab>
+                    <Button variant = "contained" className = { classes.fab1 } color = "primary" onClick = {this.modeChange} >원래대로</Button>
+                    <Dialog open = {this.state.dialog} onClose = { this.handleDialogToggle}>
+                        <DialogTitle>무협지 추가</DialogTitle>
+                        <DialogContent>
+                            <TextField label = "소설" type = "text" name = "novel"  onChange = {this.handleValueChange}></TextField>
+                            <TextField label = "조회수" type = "text" name = "views"  onChange = {this.handleValueChange}></TextField>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant = "contained" color = "primary" onClick = {this.handleSubmit}>추가</Button>
+                            <Button variant = "outlined" color = "primary" onClick = {this.handleDialogToggle}>닫기</Button>
+                        </DialogActions>
+                    </Dialog>
+                 </div>
+            );
+
+        }
     }
 }
 
