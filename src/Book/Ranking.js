@@ -4,6 +4,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography  from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link'
 
 const styles = theme => ({
     fab : {
@@ -87,7 +89,9 @@ class Ranking extends React.Component {
                         조회수 : {novel.views}
                     </Typography>
                     <Typography variant = "h5" component = "h2">
+                        <Link component = {RouterLink} to ='/bookinformation'>
                         { novel.novel }
+                        </Link>
                     </Typography>
                 </CardContent>
             </Card>

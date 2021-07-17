@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import './App2.css';
 import Booknav from './Book/Booknav';
+import Novel from './Book/Novel';
+import BookHeader from './Book/BookHeader';
 import Home from './Book/Home';
-import Ranking from './Book/Ranking'
+import Webtoon from './Book/Webtoon';
 
 class App2 extends Component {
 
@@ -12,10 +14,12 @@ class App2 extends Component {
         return(
             <div>
             <Router>
+            <BookHeader />
             <Booknav>
                 <div>
                     <Route exact path="/" component = {Home} />
-                    <Route exact path="/ranking" component = {Ranking} />
+                    <Route exact path="/novel" component = {Novel} />
+                    <Route exact path="/webtoon" component = {Webtoon} />
                 </div>
                  </Booknav>
                  </Router>

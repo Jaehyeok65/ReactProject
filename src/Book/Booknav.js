@@ -7,6 +7,9 @@ import  IconButton  from '@material-ui/core/IconButton';
 import MenuIcon from  '@material-ui/icons/Menu';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link'
+import HomeIcon from '@material-ui/icons/Home';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 
 
 const styles = {
@@ -33,18 +36,21 @@ class Booknav extends Component {
         return(
             <div>
            <div className = { classes.root } >
-               <AppBar position = "static"> 무사모
+               <AppBar position = "fixed">
                <IconButton className =  { classes.MenuButton } color = "inherit"
                onClick = {this.handerDrawer}>
                    <MenuIcon />
                </IconButton>
                </AppBar>
                <Drawer open = {this.state.toggle}>
-                   <MenuItem onClick = {this.handerDrawer}>
-                       <Link component = {RouterLink} to ="/">Home</Link>
+                       <MenuItem onClick = {this.handerDrawer}>
+                       <HomeIcon /><Link component = {RouterLink} to ="/"> Home</Link>
                        </MenuItem>
                        <MenuItem onClick = {this.handerDrawer}>
-                       <Link component = {RouterLink} to ="/ranking">조회순</Link>
+                       <MenuBookIcon /><Link component = {RouterLink} to ="/novel"> 소설</Link>
+                       </MenuItem>
+                       <MenuItem onClick = {this.handerDrawer}>
+                       <CollectionsBookmarkIcon /><Link component = {RouterLink} to ="/webtoon"> 웹툰</Link>
                        </MenuItem>
                </Drawer>
            </div>

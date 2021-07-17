@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class BookHeader extends React.Component {
+class BookHeader extends Component {
 
 
     render() {
         return(
             <header className ="head">
-                <h1>무협지 추천 사이트</h1>
             </header>
         )
 
