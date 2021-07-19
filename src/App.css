@@ -1,5 +1,14 @@
-.App {
-  font-weight: bold;
-  font-size : x-large;
+body {
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+.header {
+  text-align: center;
+  font-family: cursive;
+}
+
+.button {
+  position: static;
+  margin-left : 'auto';
 }
 
