@@ -11,6 +11,43 @@ import './Card.css';
 
 
 class Cardcontent extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            novel_name : '',
+            novel_view : null,
+        }
+    }
+
+
+
+
+
+
+
+
+    onCall = () =>{
+        const view = {
+            novel_view : this.state.novel_view,
+            novel_name : this.state.novel_name,
+        };
+
+        fetch("http://localhost:4000/novelview",{
+          method:"post",
+          headers : {
+            "content-type" : "application/json",
+          },
+          body : JSON.stringify(view),
+        })
+    }
+    
+
+      IncreaseView = () => {
+          this.setState({
+            novel_view : this.state.novel_view + 1,
+            novel_name : this.props.name,
+        });
+      }
 
 
     render() {
@@ -22,8 +59,8 @@ class Cardcontent extends React.Component {
   <Card.Header>{this.props.header}</Card.Header>
   <Card.Body>
   <Grid container>
-    <Grid item xs = {12} lg = {1}>
-    <img src = {imgurl} width = "100" alt = {img} />
+    <Grid item xs = {12} lg = {2}>
+    <img src = {imgurl} width = "130" alt = {img} onClick = {this.IncreaseView} />
     <Card.Title>{this.props.name}</Card.Title>
     </Grid>
     <Grid item xs = {12} lg = {6}>
@@ -32,7 +69,7 @@ class Cardcontent extends React.Component {
     </Card.Text>
     </Grid>
     <Grid item xs = {8} lg = {1}>
-    <Button variant="outline-primary">별점 주기</Button>
+    <Button variant="outline-primary" onClick = {this.onCall}>조회하기</Button>
     </Grid>
     <Grid item xs = {4} lg = {3}>
     <StarRate rate = {this.props.rate} />

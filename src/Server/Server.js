@@ -101,6 +101,32 @@ app.post("/callwebtoon", (req,res)=>{
     })
 })
 
+app.post("/webtoonview", (req,res)=>{
+    connection.query("UPDATE webtooninformation SET webtoon_view = webtoon_view + ? WHERE webtoon_name = ?",[req.body.webtoon_view,req.body.webtoon_name],
+    function(err,rows,fields){
+        if(err){
+            console.log("로드 실패");
+        }else{
+            console.log("로드 성공");
+            //console.log(rows);
+            res.send(rows);
+        }
+    })
+})
+
+app.post("/novelview", (req,res)=>{
+    connection.query("UPDATE novelinformation SET novel_view = novel_view + ? WHERE novel_name = ?",[req.body.novel_view,req.body.novel_name],
+    function(err,rows,fields){
+        if(err){
+            console.log("로드 실패");
+        }else{
+            console.log("로드 성공");
+            //console.log(rows);
+            res.send(rows);
+        }
+    })
+})
+
 app.post("/islogin", (req,res)=>{
     connection.query("SELECT user_id, user_password FROM userinformation where user_id = ?",[req.body.user_id],
     function(err,rows,fields) {
