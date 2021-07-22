@@ -6,6 +6,9 @@ import  'bootstrap/dist/css/bootstrap.min.css' ;
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from  '@material-ui/icons/Menu';
 import  IconButton  from '@material-ui/core/IconButton';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link'
+
 
 
 
@@ -15,7 +18,7 @@ const styles = {
   },
   MenuButton : {
       right : '20px',
-      top : '10px',
+      top : '15px',
       position : 'static',
   },
   LoginButton : {
@@ -23,6 +26,27 @@ const styles = {
       top : '10px',
       position : 'fixed'
   },
+  navlink1 : {
+     color : 'black',
+     left : '80px',
+     top : '15px',
+     position : 'absolute',
+  },
+  navlink2 : {
+    color : 'black',
+    left : '160px',
+    top : '15px',
+    position : 'absolute',
+ },
+ navlink3 : {
+  color : 'black',
+  left : '240px',
+  top : '15px',
+  position : 'absolute',
+},
+  navbar : {
+    position : 'fixed',
+  }
 }
 
 class Navigation extends Component {
@@ -30,25 +54,30 @@ class Navigation extends Component {
 
 
     render() {
-      const {classes} = this.props;
+
+      const { classes } = this.props;
+  
 
         return (
           <div>
+          <div className = {classes.root}>
             <Navbar bg="light">
             <IconButton color = "inherit"
                onClick = {this.handerDrawer}>
                    <MenuIcon />
                </IconButton>
             <Container>
-    <Navbar.Brand href="/home">무협툰</Navbar.Brand>
     <Nav className="me-auto">
-      <Nav.Link href="/home">Home</Nav.Link>
-      <Nav.Link href="/novel">무협</Nav.Link>
-      <Nav.Link href="/webtoon">웹툰</Nav.Link>
+      <Link className = {classes.navlink1} component = {RouterLink} to = "/">Home</Link>
+      <Link className = {classes.navlink2} component = {RouterLink} to = "/novel">무협</Link>
+      <Link className = {classes.navlink3} component = {RouterLink} to = "/webtoon">웹툰</Link>
     </Nav>
     </Container>
   </Navbar>
-
+       </div>
+       <div style = {{margin : 'auto', marginTop : '20px'}}>
+               { this.props.children }
+           </div>
           </div>
         );
     }

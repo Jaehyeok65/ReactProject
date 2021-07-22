@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 4000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const multer = require('multer');
 
 var connection = mysql.createConnection({
     host : 'localhost',
@@ -17,6 +18,7 @@ var connection = mysql.createConnection({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static("public"));
  
 // http://localhost:4000/ 으로 접속 시 응답메시지 출력
 app.get('/', (req,res) => {
@@ -42,6 +44,7 @@ app.post("/idplz", (req,res)=>{
 
     
 });
+
 app.post("/callbody", (req,res)=>{
     connection.query("SELECT * FROM userinformation",
     function(err,rows,fields){
@@ -49,6 +52,49 @@ app.post("/callbody", (req,res)=>{
             console.log("불러오기 실패");
         }else{
             console.log("불러오기 성공");
+            //console.log(rows);
+            res.send(rows);
+        }
+    })
+})
+
+app.post("/callnovel", (req,res)=>{
+    connection.query("SELECT * FROM novelinformation",
+    function(err,rows,fields){
+        if(err){
+            console.log("로드 실패");
+        }else{
+            console.log("로드 성공");
+            //console.log(rows);
+            res.send(rows);
+        }
+    })
+})
+
+const storage = multer.diskStorage({
+    destination: "C:/Users/wkkl2/reactproject/public/assets",
+    filename: function(req, file, cb) {
+      cb(null, file.originalname);
+    }
+  });
+
+  const upload = multer({
+    storage: storage,
+  });
+
+  
+  app.post("/uploaded", upload.single("file"), function(req, res, next) {
+      console.log(req.file.filename);
+       res.send(req.file.filename);
+  });
+
+app.post("/callwebtoon", (req,res)=>{
+    connection.query("SELECT * FROM webtooninformation",
+    function(err,rows,fields){
+        if(err){
+            console.log("로드 실패");
+        }else{
+            console.log("로드 성공");
             //console.log(rows);
             res.send(rows);
         }
