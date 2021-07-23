@@ -101,6 +101,32 @@ app.post("/callwebtoon", (req,res)=>{
     })
 })
 
+app.post("/ranknovel", (req,res)=>{
+    connection.query("SELECT * FROM novelinformation ORDER BY novel_view DESC limit 3;",
+    function(err,rows,fields){
+        if(err){
+            console.log("로드 실패");
+        }else{
+            console.log("로드 성공");
+            console.log(rows);
+            res.send(rows);
+        }
+    })
+})
+
+app.post("/rankwebtoon", (req,res)=>{
+    connection.query("SELECT * FROM webtooninformation ORDER BY webtoon_view DESC limit 3;",
+    function(err,rows,fields){
+        if(err){
+            console.log("로드 실패");
+        }else{
+            console.log("로드 성공");
+            console.log(rows);
+            res.send(rows);
+        }
+    })
+})
+
 app.post("/webtoonview", (req,res)=>{
     connection.query("UPDATE webtooninformation SET webtoon_view = webtoon_view + ? WHERE webtoon_name = ?",[req.body.webtoon_view,req.body.webtoon_name],
     function(err,rows,fields){

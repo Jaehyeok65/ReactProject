@@ -46,7 +46,12 @@ class Cardcontent extends React.Component {
           this.setState({
             novel_view : this.state.novel_view + 1,
             novel_name : this.props.name,
+            ratestate : false,
         });
+      }
+
+      componentDidUpdate() {
+        this.onCall();
       }
 
 
@@ -55,6 +60,7 @@ class Cardcontent extends React.Component {
         const imgurl = "/assets/"+img+".jpg";
 
         return (
+          <div>
             <Card border="dark" style={{ marginBottom : '20px', marginLeft : '30px', marginRight : '30px'}}>
   <Card.Header>{this.props.header}</Card.Header>
   <Card.Body>
@@ -69,7 +75,7 @@ class Cardcontent extends React.Component {
     </Card.Text>
     </Grid>
     <Grid item xs = {8} lg = {1}>
-    <Button variant="outline-primary" onClick = {this.onCall}>조회하기</Button>
+    <Button variant="outline-primary">별점 주기</Button>
     </Grid>
     <Grid item xs = {4} lg = {3}>
     <StarRate rate = {this.props.rate} />
@@ -77,6 +83,7 @@ class Cardcontent extends React.Component {
     </Grid>
        </Card.Body>
        </Card>
+       </div>
         )
     }
 

@@ -17,12 +17,12 @@ const styles = {
     MenuButton : {
         right : '20px',
         top : '10px',
-        position : 'absolute',
+        position : 'fixed',
     },
     LoginButton : {
         right : '120px',
         top : '10px',
-        position : 'absolute'
+        position : 'fixed',
     }
   }
 

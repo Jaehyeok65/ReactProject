@@ -19,7 +19,7 @@ const styles = {
   MenuButton : {
       right : '20px',
       top : '15px',
-      position : 'static',
+      position : 'fixed',
   },
   LoginButton : {
       right : '120px',
@@ -30,23 +30,20 @@ const styles = {
      color : 'black',
      left : '80px',
      top : '15px',
-     position : 'absolute',
+     position : 'fixed',
   },
   navlink2 : {
     color : 'black',
     left : '160px',
     top : '15px',
-    position : 'absolute',
+    position : 'fixed',
  },
  navlink3 : {
   color : 'black',
   left : '240px',
   top : '15px',
-  position : 'absolute',
+  position : 'fixed',
 },
-  navbar : {
-    position : 'fixed',
-  }
 }
 
 class Navigation extends Component {

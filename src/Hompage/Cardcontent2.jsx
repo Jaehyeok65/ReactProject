@@ -42,12 +42,17 @@ class Cardcontent2 extends React.Component {
         });
       }
 
+      componentDidUpdate() {
+        this.onCall();
+      }
+
 
     render() {
         const img = this.props.img;
         const imgurl = "/imgfile/"+img+".jpg";
 
         return (
+          <div>
             <Card border="dark" style={{ marginBottom : '20px', marginLeft : '30px', marginRight : '30px'}}>
   <Card.Header>{this.props.header}</Card.Header>
   <Card.Body>
@@ -62,7 +67,7 @@ class Cardcontent2 extends React.Component {
     </Card.Text>
     </Grid>
     <Grid item xs = {8} lg = {1}>
-    <Button variant="outline-primary" onClick= {this.onCall}>조회하기</Button>
+    <Button variant="outline-primary">별점 주기</Button>
     </Grid>
     <Grid item xs = {4} lg = {3}>
     <StarRate rate = {this.props.rate} />
@@ -70,6 +75,7 @@ class Cardcontent2 extends React.Component {
     </Grid>
        </Card.Body>
        </Card>
+       </div>
         )
     }
 
