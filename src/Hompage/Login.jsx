@@ -37,6 +37,7 @@ const styles = {
           dialog : false,
           password_check : "",
           loginstate : false,
+          passwordstate : false,
         }
       }
 
@@ -77,8 +78,42 @@ const styles = {
         })
       }
 
+      findid = () => {
+        const info = {
+          user_name : this.state.user_name
+        }
+        fetch("http://localhost:4000/findid",{
+            method:"post",
+            headers : {
+              "content-type" : "application/json",
+            },
+            body : JSON.stringify(info),
+          })
+          .then((res)=>res.json())
+          .then(data => {
+            try {
+            alert("아이디는 (" + data[0].user_id + "), 비밀번호는 (" + data[0].user_password+") 입니다.");
+            this.handleLoginPasswordState();
+            }
+            catch(e) {
+              alert("아이디가 존재하지 않습니다. 이름을 다시 확인해주세요");
+            }
+          })
+      }
+
       handleLoginState = () => {
         this.setState({loginstate : !this.state.loginstate});
+      }
+
+      handlePasswordState = () => {
+        this.setState({passwordstate : !this.state.passwordstate});
+      }
+
+      handleLoginPasswordState = () => {
+        this.setState({
+          passwordstate : !this.state.passwordstate,
+          loginstate : !this.state.loginstate,
+        });
       }
 
       handleChange = (e) => {
@@ -103,6 +138,7 @@ const styles = {
                 <p>
                   <TextField label = "비밀번호" type = "text" name = "user_password"  onChange = {this.handleChange}></TextField>
                 </p>
+                <p style = {{marginLeft : '40px'}} onClick = {this.handleLoginPasswordState}>아이디/비밀번호 찾기</p>
                   </DialogContent>
                    <DialogActions>
                       <Button variant = "outline-success" onClick = {this.getLogin}>로그인</Button>
@@ -110,6 +146,19 @@ const styles = {
                   </DialogActions>
                   </Dialog>
                <Button className = {classes.LoginButton} variant = "outline-secondary" onClick = {this.handleLoginState}>로그인</Button>
+
+               <Dialog open = {this.state.passwordstate} onClose = {this.handlePasswordState}>
+                 <DialogTitle>아이디/비밀번호 찾기</DialogTitle>
+                  <DialogContent>
+                <p>
+                  <TextField label = "이름" type = "text" name = "user_name"  onChange = {this.handleChange}></TextField>
+                </p>
+                  </DialogContent>
+                   <DialogActions>
+                      <Button variant = "outline-success" onClick = {this.findid}>찾기</Button>
+                      <Button variant = "outline-dark" onClick = {this.handlePasswordState}>닫기</Button>
+                  </DialogActions>
+                  </Dialog>
                </div>
 
 

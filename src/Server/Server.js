@@ -88,7 +88,7 @@ const storage = multer.diskStorage({
        res.send(req.file.filename);
   });
 
-app.post("/callwebtoon", (req,res)=>{
+    app.post("/callwebtoon", (req,res)=>{
     connection.query("SELECT * FROM webtooninformation",
     function(err,rows,fields){
         if(err){
@@ -99,7 +99,49 @@ app.post("/callwebtoon", (req,res)=>{
             res.send(rows);
         }
     })
-})
+    })
+
+    app.post("/findid", (req,res)=>{
+        console.log(req.body);
+        connection.query("SELECT user_id,user_password FROM userinformation where user_name = ?",[req.body.user_name],
+        function(err,rows,fields){
+            if(err){
+                console.log("로드 실패");
+            }else{
+                console.log("로드 성공");
+                console.log(rows);
+                res.send(rows);
+            }
+        })
+    })
+
+    app.post("/novelrate", (req,res)=>{
+        //console.log(req.body);
+        connection.query("UPDATE novelinformation SET novel_rate = (novel_rate + ?)/2 WHERE novel_name = ?",[req.body.novel_rate,req.body.novel_name],
+        function(err,rows,fields){
+            if(err){
+                console.log("로드 실패");
+            }else{
+                console.log("로드 성공");
+                console.log(rows);
+                res.send(rows);
+            }
+        })
+        })
+
+        app.post("/webtoonrate", (req,res)=>{
+            //console.log(req.body);
+            connection.query("UPDATE webtooninformation SET webtoon_rate = (webtoon_rate + ?)/2 WHERE webtoon_name = ?",[req.body.webtoon_rate,req.body.webtoon_name],
+            function(err,rows,fields){
+                if(err){
+                    console.log("로드 실패");
+                }else{
+                    console.log("로드 성공했다.");
+                    //console.log(rows);
+                    res.send(rows);
+                }
+            })
+            })
 
 app.post("/ranknovel", (req,res)=>{
     connection.query("SELECT * FROM novelinformation ORDER BY novel_view DESC limit 3;",
@@ -108,7 +150,7 @@ app.post("/ranknovel", (req,res)=>{
             console.log("로드 실패");
         }else{
             console.log("로드 성공");
-            console.log(rows);
+            //console.log(rows);
             res.send(rows);
         }
     })
@@ -121,7 +163,7 @@ app.post("/rankwebtoon", (req,res)=>{
             console.log("로드 실패");
         }else{
             console.log("로드 성공");
-            console.log(rows);
+            //console.log(rows);
             res.send(rows);
         }
     })
@@ -152,6 +194,9 @@ app.post("/novelview", (req,res)=>{
         }
     })
 })
+
+
+
 
 app.post("/islogin", (req,res)=>{
     connection.query("SELECT user_id, user_password FROM userinformation where user_id = ?",[req.body.user_id],
