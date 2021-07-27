@@ -16,10 +16,8 @@ class Webtoon extends Component {
         }
     }
 
-
-
-    onCall = () =>{
-        fetch("http://localhost:4000/callwebtoon",{
+      onCall = () => {
+      fetch("http://localhost:4000/callwebtoon",{
           method:"post",
           headers : {
             "content-type" : "application/json",
@@ -29,6 +27,7 @@ class Webtoon extends Component {
         .then((res)=>res.json())
         .then(data => this.setState({webtoon_list : data}))
     }
+      
     
       componentDidMount() {
         this.onCall();
@@ -41,7 +40,7 @@ class Webtoon extends Component {
             return (
             <div>
             <Cardcontent2 header = "웹툰" name = {lists.webtoon_name} view = {lists.webtoon_view} rate = {lists.webtoon_rate}
-            img = {lists.webtoon_img} />
+            img = {lists.webtoon_img} link = {lists.webtoon_link} />
             </div>
             );
         })

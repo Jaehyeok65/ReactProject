@@ -41,7 +41,7 @@ class Novel extends Component {
             return (
             <div>
             <Cardcontent header ="무협" name = {lists.novel_name} view = {lists.novel_view} rate = {lists.novel_rate}
-            img = {lists.novel_img} />
+            img = {lists.novel_img} link = {lists.novel_link} />
             </div>
             );
         })
