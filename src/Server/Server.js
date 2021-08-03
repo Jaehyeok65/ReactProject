@@ -195,6 +195,30 @@ app.post("/novelview", (req,res)=>{
     })
 })
 
+app.post("/noveldelete", (req,res)=>{
+    connection.query("DELETE FROM novelinformation WHERE novel_name = ?",[req.body.novel_name],
+    function(err,rows,fields){
+        if(err){
+            console.log("로드 실패");
+        }else{
+            console.log("로드 성공");
+            //console.log(rows);
+        }
+    })
+})
+
+app.post("/noveladd", (req,res)=>{
+    connection.query("INSERT INTO novelinformation (novel_name, novel_view, novel_rate, novel_link) VALUES (?,?,?,?)",[req.body.novel_name,req.body.novel_view,req.body.novel_rate,req.body.novel_link],
+    function(err,rows,fields){
+        if(err){
+            console.log("로드 실패");
+        }else{
+            console.log("로드 성공");
+            //console.log(rows);
+        }
+    })
+})
+
 
 
 
